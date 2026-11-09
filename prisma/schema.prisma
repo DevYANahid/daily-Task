@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id             Int      @id @default(autoincrement())
+  name           String
+  type           String
+  openingBalance Float    @default(0)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  transactions Transaction[]
+  debtPayments DebtPayment[]
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  transactions Transaction[]
+}
+
+model Person {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String?
+  note      String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions Transaction[]
+  debts        Debt[]
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  type        String
+  amount      Float
+  description String?
+  date        DateTime @default(now())
+
+  accountId  Int
+  categoryId Int?
+  personId   Int?
+
+  account  Account   @relation(fields: [accountId], references: [id])
+  category Category? @relation(fields: [categoryId], references: [id])
+  person   Person?   @relation(fields: [personId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Debt {
+  id          Int      @id @default(autoincrement())
+  type        String
+  amount      Float
+  description String?
+  date        DateTime @default(now())
+  status      String   @default("OPEN")
+
+  personId Int
+  person   Person @relation(fields: [personId], references: [id])
+
+  payments DebtPayment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DebtPayment {
+  id     Int      @id @default(autoincrement())
+  amount Float
+  date   DateTime @default(now())
+  note   String?
+
+  debtId Int
+  debt   Debt @relation(fields: [debtId], references: [id])
+
+  accountId Int
+  account   Account @relation(fields: [accountId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+
+model DailyPlan {
+  id        String      @id @default(cuid())
+  date      DateTime    @unique
+  completed Boolean     @default(false)
+  tasks     DailyTask[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model DailyTask {
+  id           String    @id @default(cuid())
+  slug         String
+  title        String
+  description  String
+  targetMinutes Int?
+  completed    Boolean   @default(false)
+  completedAt  DateTime?
+  dailyPlanId  String
+  dailyPlan    DailyPlan @relation(fields: [dailyPlanId], references: [id], onDelete: Cascade)
+
+  @@unique([dailyPlanId, slug])
+}
