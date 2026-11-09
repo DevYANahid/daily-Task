@@ -1,7 +1,7 @@
 
 /* =========================================
-   SOFTVIVO - DAILY DISCIPLINE
-   Premium Creative Office Theme
+   SOFTVIVO DAILY DISCIPLINE
+   Premium Productivity Dashboard
 ========================================= */
 
 .discipline-page {
@@ -9,13 +9,17 @@
   --cyan: #45c7e8;
   --purple: #a78bfa;
   --gold: #f6bd60;
+
   position: relative;
+  display: flex;
   min-height: 100vh;
-  overflow: hidden;
-  background: #081522;
+  overflow-x: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 80% 5%, #17443d35, transparent 40%),
+    #081522;
   color: #f8fafc;
   font-family: inherit;
-  isolation: isolate;
 }
 
 .discipline-page * {
@@ -27,15 +31,170 @@
   cursor: pointer;
 }
 
+.discipline-page button:disabled {
+  cursor: not-allowed;
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+  position: fixed;
+  z-index: 20;
+  inset: 0 auto 0 0;
+  width: 245px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 27px 18px;
+  background: rgba(9, 23, 36, .94);
+  border-right: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(22px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 30px;
+  color: white;
+  text-decoration: none;
+}
+
+.brand-icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: #05291e;
+  font-size: 23px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #54e5b2, #20c997);
+  box-shadow: 0 5px 22px #20c99735;
+}
+
+.brand-text strong,
+.brand-text span {
+  display: block;
+}
+
+.brand-text strong {
+  font-size: 17px;
+  letter-spacing: -.4px;
+}
+
+.brand-text span {
+  color: #8198a9;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.nav-label {
+  padding: 15px 10px 9px;
+  color: #71899b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.nav-item {
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 13px;
+  border-radius: 11px;
+  color: #a5b7c5;
+  text-decoration: none;
+  font-size: 12px;
+  transition: .25s ease;
+}
+
+.nav-item:hover {
+  color: white;
+  background: #ffffff0b;
+  transform: translateX(3px);
+}
+
+.nav-item.active {
+  color: #5ce4b3;
+  background: linear-gradient(90deg, #20c99725, #20c99709);
+  border: 1px solid #20c99730;
+  box-shadow: inset 3px 0 #20c997;
+}
+
+.nav-item.active svg {
+  color: #5ce4b3;
+}
+
+.second-label {
+  margin-top: 15px;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+}
+
+.security-card {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 14px 11px;
+  border: 1px solid #20c99725;
+  border-radius: 13px;
+  background: #20c9970c;
+}
+
+.security-icon {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #20c99720;
+  color: #5ce4b3;
+}
+
+.security-card strong,
+.security-card span {
+  display: block;
+}
+
+.security-card strong {
+  font-size: 10px;
+  color: #dcebe7;
+}
+
+.security-card span {
+  margin-top: 5px;
+  color: #819b9c;
+  font-size: 9px;
+}
+
+/* =========================================
+   OFFICE BACKGROUND
+========================================= */
+
 .office-scene {
   position: absolute;
-  inset: 0 0 auto;
+  inset: 0 0 auto 245px;
   height: 600px;
   overflow: hidden;
   z-index: -1;
-  background:
-    linear-gradient(180deg, rgba(15, 39, 54, .1), #081522 95%);
   pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 39, 54, .1),
+    #081522 95%
+  );
 }
 
 .office-window {
@@ -145,15 +304,18 @@
 .office-plant i:nth-child(5) { transform: rotate(55deg); }
 .office-plant i:nth-child(6) { transform: rotate(75deg); }
 
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
 .discipline-content {
   position: relative;
   z-index: 1;
-  max-width: 1250px;
-  margin: auto;
-  padding: 65px 28px 70px;
+  width: calc(100% - 245px);
+  max-width: none;
+  margin-left: 245px;
+  padding: 55px clamp(22px, 4vw, 65px) 65px;
 }
-
-/* HEADER */
 
 .discipline-header {
   display: flex;
@@ -213,11 +375,13 @@
 .header-date strong { display: block; font-size: 13px; }
 .header-date small { display: block; color: #9cb0c0; margin-top: 5px; }
 
-/* STATS */
+/* =========================================
+   STATS
+========================================= */
 
 .discipline-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 17px;
   margin-bottom: 28px;
 }
@@ -225,12 +389,26 @@
 .stat-card {
   position: relative;
   overflow: hidden;
+  min-height: 175px;
   padding: 23px;
   border-radius: 22px;
   background: linear-gradient(145deg, #172d3e, #102130);
   border: 1px solid #ffffff12;
   box-shadow: 0 15px 35px #0002;
+  backdrop-filter: blur(20px);
   transition: transform .3s, border-color .3s;
+}
+
+.stat-card::after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -45px;
+  top: -50px;
+  border-radius: 50%;
+  background: #ffffff08;
+  pointer-events: none;
 }
 
 .stat-card:hover {
@@ -252,12 +430,14 @@
 .stat-purple .stat-icon { color: #ba9aff; background: #ba9aff1c; }
 
 .stat-card > small { color: #a6b6c5; font-size: 12px; }
+
 .stat-card > strong {
   display: block;
   font-size: 34px;
   margin: 7px 0;
   letter-spacing: -1px;
 }
+
 .stat-card > strong small { font-size: 15px; color: #8799aa; }
 .stat-card p { color: #8296a9; font-size: 12px; }
 
@@ -277,15 +457,17 @@
   transition: width .5s;
 }
 
-/* CALENDAR */
+/* =========================================
+   CALENDAR
+========================================= */
 
 .calendar-panel {
   padding: 30px;
   border: 1px solid #ffffff16;
   border-radius: 27px;
-  background: linear-gradient(145deg, #152a3beF, #0e2030f2);
+  background: linear-gradient(145deg, #152a3bef, #0e2030f2);
   box-shadow: 0 25px 65px #0003;
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
 }
 
 .calendar-heading {
@@ -449,7 +631,9 @@
 .legend-partial { background: #b49aff; }
 .legend-today { background: #65d9f5; }
 
-/* MOTIVATION */
+/* =========================================
+   MOTIVATION
+========================================= */
 
 .motivation-panel {
   display: flex;
@@ -467,6 +651,7 @@
   height: 49px;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
   border-radius: 15px;
   background: #20c99720;
   color: #5be2ad;
@@ -474,9 +659,22 @@
 
 .motivation-panel strong { font-size: 15px; }
 .motivation-panel p { color: #a0b8c5; font-size: 12px; margin-top: 5px; }
-.motivation-trophy { margin-left: auto; color: #e8bd6b; }
+.motivation-trophy { margin-left: auto; color: #e8bd6b; flex-shrink: 0; }
 
-/* MODAL */
+.discipline-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 35px;
+  padding-top: 20px;
+  border-top: 1px solid #ffffff12;
+  color: #71899b;
+  font-size: 10px;
+}
+
+/* =========================================
+   MODAL
+========================================= */
 
 .mission-overlay {
   position: fixed;
@@ -503,6 +701,8 @@
   border: 1px solid #ffffff25;
   box-shadow: 0 30px 100px #0009;
   animation: modalIn .4s cubic-bezier(.2,.8,.2,1) both;
+  scrollbar-width: thin;
+  scrollbar-color: #20c997 #102334;
 }
 
 .modal-top-decoration {
@@ -530,17 +730,21 @@
 .modal-close {
   display: grid;
   place-items: center;
+  flex-shrink: 0;
   width: 39px;
   height: 39px;
   border: 1px solid #ffffff16;
   border-radius: 12px;
   color: white;
   background: #ffffff0c;
+  transition: .2s;
 }
 
 .modal-close:hover { background: #e45d6b; }
 
-/* PROGRESS RING */
+/* =========================================
+   PROGRESS RING
+========================================= */
 
 .mission-progress {
   display: flex;
@@ -576,7 +780,7 @@
 .progress-ring strong { font-size: 18px; }
 .progress-ring small { font-size: 8px; color: #91a9ba; letter-spacing: 1px; }
 
-.progress-copy { flex: 1; }
+.progress-copy { flex: 1; min-width: 0; }
 .progress-copy strong { font-size: 13px; }
 .progress-copy p { color: #8ea4b6; font-size: 11px; margin: 7px 0 12px; }
 
@@ -595,7 +799,9 @@
   transition: width .5s ease;
 }
 
-/* MISSION CARDS */
+/* =========================================
+   MISSION CARDS
+========================================= */
 
 .mission-list { display: grid; gap: 13px; }
 
@@ -634,6 +840,7 @@
 }
 
 .mission-title h3 { font-size: 14px; margin: 0; }
+
 .mission-title span {
   font-size: 9px;
   letter-spacing: 1px;
@@ -675,7 +882,7 @@
   border-color: #20c997;
 }
 
-.mission-action:disabled { opacity: .6; cursor: not-allowed; }
+.mission-action:disabled { opacity: .6; }
 
 .action-done {
   background: #20c99720;
@@ -683,7 +890,9 @@
   border-color: #20c99740;
 }
 
-/* SPEAKING TIMER */
+/* =========================================
+   SPEAKING TIMER
+========================================= */
 
 .speaking-timer {
   display: flex;
@@ -713,6 +922,7 @@
 }
 
 .timer-buttons { display: flex; gap: 8px; }
+
 .timer-buttons button {
   padding: 9px 15px;
   border: 0;
@@ -722,8 +932,17 @@
   font-size: 11px;
   font-weight: 800;
 }
-.timer-buttons button + button { background: #ffffff12; color: white; }
+
+.timer-buttons button + button {
+  background: #ffffff12;
+  color: white;
+}
+
 .timer-buttons button:disabled { opacity: .4; cursor: not-allowed; }
+
+/* =========================================
+   SUCCESS, LOADING AND ERRORS
+========================================= */
 
 .success-banner {
   display: flex;
@@ -740,7 +959,7 @@
 
 .success-banner strong { font-size: 13px; letter-spacing: 1px; }
 .success-banner p { font-size: 11px; color: #a6cdbf; margin-top: 5px; }
-.success-banner > svg:last-child { margin-left: auto; }
+.success-banner > svg:last-child { margin-left: auto; flex-shrink: 0; }
 
 .modal-loading {
   padding: 50px 10px;
@@ -748,11 +967,35 @@
   color: #9cb2c1;
 }
 
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 15px;
+  border: 3px solid #ffffff18;
+  border-top-color: #20c997;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+.retry-button {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 9px;
+  background: #20c997;
+  color: #05271d;
+  font-weight: 700;
+}
+
 .mission-error {
   margin-top: 15px;
   color: #ff9292;
   font-size: 12px;
 }
+
+/* =========================================
+   ANIMATIONS
+========================================= */
 
 @keyframes overlayIn {
   from { opacity: 0; }
@@ -769,33 +1012,249 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 768px) {
-  .discipline-content { padding: 38px 15px; }
-  .discipline-stats { grid-template-columns: 1fr; gap: 12px; }
-  .stat-card { padding: 18px; }
-  .stat-icon { margin-bottom: 12px; }
-  .calendar-panel { padding: 18px 12px; border-radius: 20px; }
-  .calendar-heading { align-items: flex-start; }
-  .calendar-heading h2 { font-size: 19px; }
-  .calendar-grid { gap: 5px; }
-  .calendar-day { min-height: 65px; border-radius: 11px; }
-  .day-number { font-size: 15px; }
-  .today-label { font-size: 6px; }
-  .calendar-legend { gap: 12px; font-size: 9px; }
-  .mission-modal { padding: 23px 16px; border-radius: 21px; }
-  .mission-card { padding: 14px 11px; gap: 10px; }
-  .mission-icon { width: 40px; height: 40px; }
-  .mission-title { align-items: flex-start; flex-direction: column; }
-  .office-window { width: 80%; right: 5%; }
-  .plant-right { display: none; }
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-@media (max-width: 380px) {
-  .calendar-day { min-height: 53px; }
-  .day-number { font-size: 13px; }
-  .day-check { width: 19px; height: 19px; }
-  .calendar-controls { gap: 7px; }
-  .calendar-controls strong { min-width: 120px; font-size: 12px; }
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+.calendar-day:focus-visible,
+.calendar-controls button:focus-visible,
+.mission-action:focus-visible,
+.modal-close:focus-visible {
+  outline: 2px solid #55dfb5;
+  outline-offset: 3px;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+  .sidebar { width: 205px; }
+
+  .discipline-content {
+    width: calc(100% - 205px);
+    margin-left: 205px;
+    padding: 38px 22px;
+  }
+
+  .office-scene { left: 205px; }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .discipline-page {
+    display: block;
+  }
+
+  .sidebar {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    padding: 13px 16px;
+    border-right: 0;
+    border-bottom: 1px solid #ffffff12;
+  }
+
+  .brand {
+    padding: 0 3px 12px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 7px;
+    scrollbar-width: none;
+    padding-bottom: 5px;
+  }
+
+  .sidebar-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-label,
+  .second-label,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .nav-item {
+    flex: 0 0 auto;
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .discipline-content {
+    width: 100%;
+    margin: 0;
+    padding: 30px 15px 45px;
+  }
+
+  .office-scene {
+    left: 0;
+  }
+
+  .discipline-header {
+    margin-bottom: 25px;
+  }
+
+  .discipline-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .stat-icon {
+    margin-bottom: 12px;
+  }
+
+  .calendar-panel {
+    padding: 18px 12px;
+    border-radius: 20px;
+  }
+
+  .calendar-heading {
+    align-items: flex-start;
+  }
+
+  .calendar-heading h2 {
+    font-size: 19px;
+  }
+
+  .calendar-grid {
+    gap: 5px;
+  }
+
+  .calendar-day {
+    min-height: 65px;
+    border-radius: 11px;
+  }
+
+  .day-number { font-size: 15px; }
+  .today-label { font-size: 6px; }
+
+  .calendar-legend {
+    gap: 12px;
+    font-size: 9px;
+  }
+
+  .mission-modal {
+    padding: 23px 16px;
+    border-radius: 21px;
+  }
+
+  .mission-card {
+    padding: 14px 11px;
+    gap: 10px;
+  }
+
+  .mission-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mission-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .office-window {
+    width: 80%;
+    right: 5%;
+  }
+
+  .plant-right {
+    display: none;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .discipline-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card:last-child {
+    grid-column: auto;
+  }
+
+  .discipline-header h1 {
+    font-size: 34px;
+  }
+
+  .header-date {
+    width: 100%;
+  }
+
+  .calendar-panel {
+    padding: 16px 9px;
+  }
+
+  .calendar-day {
+    min-height: 53px;
+  }
+
+  .day-number {
+    font-size: 13px;
+  }
+
+  .day-check {
+    width: 19px;
+    height: 19px;
+  }
+
+  .calendar-controls {
+    gap: 7px;
+  }
+
+  .calendar-controls strong {
+    min-width: 120px;
+    font-size: 12px;
+  }
+
+  .mission-progress {
+    padding: 13px;
+    gap: 12px;
+  }
+
+  .progress-ring {
+    width: 68px;
+    height: 68px;
+  }
+
+  .progress-ring > div {
+    width: 54px;
+    height: 54px;
+  }
+
+  .discipline-footer {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discipline-page *,
+  .discipline-page *::before,
+  .discipline-page *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
 }
