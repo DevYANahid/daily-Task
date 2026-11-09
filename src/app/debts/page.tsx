@@ -160,6 +160,9 @@ export default function DebtsPage() {
             Dashboard
           </Link>
 
+
+
+
           <Link
             href="/accounts"
             className="nav-item"

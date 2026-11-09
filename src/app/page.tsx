@@ -123,6 +123,23 @@ export default async function Home() {
             Dashboard
           </Link>
 
+          <Link
+            href="/learning"
+            className="nav-item"
+          >
+            <span>▣</span>
+            Learning
+          </Link>
+
+          <Link
+            href="/discipline"
+            className="nav-item"
+          >
+            <span>▣</span>
+            discipline
+          </Link>
+
+
           <Link href="/accounts" className="nav-item">
             <span>▣</span>
             Accounts
@@ -486,11 +503,10 @@ export default async function Home() {
                     key={transaction.id}
                   >
                     <div
-                      className={`transaction-icon ${
-                        isIncome
+                      className={`transaction-icon ${isIncome
                           ? "transaction-income"
                           : "transaction-expense"
-                      }`}
+                        }`}
                     >
                       {isIncome ? "↑" : "↓"}
                     </div>

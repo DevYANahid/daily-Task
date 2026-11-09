@@ -196,6 +196,22 @@ export default function TransactionsPage() {
           </Link>
 
           <Link
+            href="/learning"
+            className="nav-item"
+          >
+            <span>▣</span>
+            Learning
+          </Link>
+
+          <Link
+            href="/discipline"
+            className="nav-item"
+          >
+            <span>▣</span>
+            discipline
+          </Link>
+
+          <Link
             href="/transactions"
             className="nav-item active"
           >
